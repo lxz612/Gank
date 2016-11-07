@@ -2,11 +2,10 @@
 <!-- 顶部导航栏 -->
 <div class="nav">
 	<span class="appName" v-text="appName"></span>
-	<!-- <img class="select" src=""> -->
 </div>
 </template>
 <script>
-export default {
+export default {  
 	replace:true,
 	data(){
 		return{

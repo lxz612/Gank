@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import FastClick from 'fastclick';//处理移动浏览器300ms延时问题
 
 import routerMap from './routers';//路由映射
+import filters from './filters';//各种过滤器
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,11 @@ Vue.use(VueRouter);
 //由webpack-zepto模块提供.这里可以直接使用的原因是zepto已经webpack.config文件中配置好了.
 console.log($);
 $.ajaxSettings.crossDomain = true;
+
+//实例化Vue的filter
+//找出filters对象中的每一个属性，并将属性注册为Vue过滤器
+//k为过滤器Id，filters[k]为过滤器函数
+Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
 //创建一个VueRouter实例
 var router = new VueRouter({

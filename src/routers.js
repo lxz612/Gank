@@ -10,9 +10,15 @@ export default function(router) {
             }
         },
         '/index':{
-        		name: 'index',
-        		component: function(resolve) {
+        	name: 'index',
+        	component: function(resolve) {
                 require(['./views/index.vue'], resolve);
+            }
+        },
+        '/detail':{
+            name: 'detail',
+            component: function(resolve) {
+                require(['./views/detail.vue'], resolve);
             }
         }
   });
