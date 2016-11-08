@@ -1,24 +1,28 @@
 <template>
     <!-- 全局header -->
     <my-nav></my-nav>
-    <div v-for="gank in ganks" v-show="gank.results|isObject">
-        <div class="girl_img">
-            <a v-bind:href="gank.girl_url"><img v-bind:src="gank.girl_url"></a>
-            <span v-text="gank.date"></span>
+    <section id="page">
+        <div v-for="gank in ganks" v-if="gank.results|isObject">
+            <!-- 每日妹子图 -->
+            <div class="girl_img">
+                <a v-bind:href="gank.girl_url"><img v-bind:src="gank.girl_url"></a><!-- url -->
+                <span v-text="gank.date"></span><!-- 日期 -->
+            </div>
+            <!-- 每日干货 -->
+            <div class="gank" v-for="(type,items) in gank.results" v-if="type!=='福利'">
+                <!-- 干货类型 -->
+                <p v-text="type"></p>
+                <!-- 每种类型的干货集 -->
+                <ul>
+                    <li v-for="item in items" v-link="{path:'/detail'}">
+                        <a v-text="item.desc"></a><!-- 标题 -->
+                        <span class="author" v-if="item.who">(via. {{item.who}})</span><!-- 作者 -->
+                        <span class="author" v-else>(via. null})</span><!-- 作者为null -->
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="gank" v-for="(key,val) in gank.results">
-            <!-- 种类 -->
-            <p v-text="key" v-if="key!=='福利'"></p>
-            <!-- 干货 -->
-            <ul>
-                <li v-for="item in val" v-show="item.type|isNotFuli" v-link="{ path: 'detail' }">
-                    <a v-else v-text="item.desc"></a><!-- 标题 -->
-                    <span class="author" v-if="item.who">(via. {{item.who}})</span>
-                    <span class="author" v-else>(via. null})</span><!-- 作者 -->
-                </li>
-            </ul>
-        </div>
-    </div>
+    </section>
 </template>
 <script>
     import utils from '../utils'
@@ -50,8 +54,8 @@
             deactivate (transition){
                 //移除滚动监听事件
                 $(window).off('scroll');
+                console.log('oofoeoofea');
                 if (transition.to.name === "detail") {
-                    console.log('indexxxxxxxxxxx');
                     sessionStorage.scrollTop = $(window).scrollTop();
                     sessionStorage.ganks = JSON.stringify(this.ganks);
                     sessionStorage.day = JSON.stringify(this.day);
@@ -100,11 +104,15 @@
                     }
                 });
             },
-            //滚动加载数据
+            //滚动加载干货数据
             getScrollData(){
                 if(this.scroll){
-                    let totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
-                    if ($(document).height() <= totalheight + 200) {
+                    //原理：当“文档滚动距离>=文档总高度-窗口高度”时，进行加载。
+                    //但实际上文档滚动距离会出现偏差，即不会等于或大于后者的差值（可以观察下面两个log打印的值）。这时就要略微再减少一点差值，才能有作用。
+                    let differ=$(document).height()-$(window).height();
+                    // console.log('$(window).scrollTop()',$(window).scrollTop());
+                    // console.log('differ',differ);
+                    if($(window).scrollTop()>=differ-10){
                         this.scroll = false;
                         this.day.setDate(this.day.getDate()-1);
                         this.getGank();
@@ -129,6 +137,10 @@
     body,img{
         margin: 0;
         padding: 0;
+    }
+
+    #page{
+        padding-top: 70px;
     }
 
     /*妹子图片*/
@@ -174,6 +186,7 @@
         font-size: 20px;
         text-decoration: none;
     }
+
     .gank .author{
         color: #777;
         font-size: 16px;

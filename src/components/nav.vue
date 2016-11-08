@@ -16,9 +16,15 @@ export default {
 </script>
 <style>
 .nav{
+	width: 100%;
 	height:70px;
 	background: rgb(143,75,46);
 	line-height: 70px;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
 }
 .appName{
 	color: #fff;
