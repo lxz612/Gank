@@ -24,8 +24,8 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 //创建一个路由器实例
 var router = new VueRouter({
     hashbang: true,
-    history: true,
-    saveScrollPosition: true,//只有在history设置为true的情况下才有用
+    history: false,
+    saveScrollPosition: false,//只有在history设置为true的情况下才有用
     transitionOnLoad: false
 });
 

@@ -21,6 +21,12 @@ export default function(router) {
             component: function(resolve) {
                 require(['./views/detail.vue'], resolve);
             }
+        },
+        '/girl':{
+            name:'girl',
+            component:function(resolve){
+                require(['./views/girl.vue'],resolve);
+            }
         }
   });
 }

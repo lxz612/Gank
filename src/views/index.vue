@@ -2,22 +2,23 @@
     <!-- 全局header -->
     <my-nav></my-nav>
     <section id="page">
-        <div v-for="gank in ganks" v-if="gank.results|isObject">
+        <div v-for="gank in ganks">
             <!-- 每日妹子图 -->
-            <div class="girl_img">
-                <a v-bind:href="gank.girl_url"><img v-bind:src="gank.girl_url"></a><!-- url -->
+            <div class="girl_img" v-link="{path:'/girl'}">
+                <img v-bind:src="gank.girl_url"><!-- 妹子的url -->
                 <span v-text="gank.date"></span><!-- 日期 -->
             </div>
             <!-- 每日干货 -->
-            <div class="gank" v-for="(type,items) in gank.results" v-if="type!=='福利'">
+            <div class="gank" v-for="(type,items) in gank.results|filterFuli">
                 <!-- 干货类型 -->
                 <p v-text="type"></p>
                 <!-- 每种类型的干货集 -->
                 <ul>
+                    <!-- 每一条干货 -->
                     <li v-for="item in items" v-link="{path:'/detail'}">
-                        <a v-text="item.desc"></a><!-- 标题 -->
-                        <span class="author" v-if="item.who">(via. {{item.who}})</span><!-- 作者 -->
-                        <span class="author" v-else>(via. null})</span><!-- 作者为null -->
+                        <a v-text="item.desc"></a>
+                        <span class="author" v-if="item.who">(via. {{item.who}})</span>
+                        <span class="author" v-else>(via. null})</span>
                     </li>
                 </ul>
             </div>
@@ -25,19 +26,20 @@
     </section>
 </template>
 <script>
-    import utils from '../utils'
+    import utils from '../utils';
 
     export default {
         data(){
             return {
-                ganks:[],//几天干货数组
-                day:new Date(),//待获取干货的日期
-                scroll:true,//是否允许滚动加载数据
+                ganks:[],       //多日干货数组
+                day:new Date(), //待获取干货的日期
+                scroll:true,    //是否允许滚动加载数据
             }
         },
         route:{
-            //data钩子函数.当数据发生变化时调用
+            //在组件激活后调用，即在activate之后
             data (transition){
+                console.log('data');
                 if(sessionStorage.ganks && sessionStorage.day){
                     this.ganks = JSON.parse(sessionStorage.ganks);
                     this.day =new Date(JSON.parse(sessionStorage.day));
@@ -45,17 +47,17 @@
                 }else{
                     this.getGank();
                 }
+
                 //滚动加载
                 $(window).on('scroll', () => {
                     this.getScrollData();
                 });
             },
-            //钩子函数.禁用组件
+            //在组件将要被禁用和被移除的时候调用
             deactivate (transition){
                 //移除滚动监听事件
                 $(window).off('scroll');
-                console.log('oofoeoofea');
-                if (transition.to.name === "detail") {
+                if (transition.to.name !== "index") {
                     sessionStorage.scrollTop = $(window).scrollTop();
                     sessionStorage.ganks = JSON.stringify(this.ganks);
                     sessionStorage.day = JSON.stringify(this.day);
@@ -67,7 +69,7 @@
             }
         },
         methods:{
-            //获取最新的干货数据(无配图)。实例：http://gank.io/api/day/2016/11/04
+            //获取最新的干货数据。API示例：http://gank.io/api/day/2016/11/04
             getGank(){
                 var _self=this;//因为es5语法中，回调函数内的this指针为null，所以要先用个变量存储当前的this
 
@@ -77,11 +79,11 @@
                 $.get(requrl,function(d){
                     
                     if(d && !isNullObject(d.results) &&!d.error){//获取今日干货资源
-                        //说明
-                        // gank:{//某日干货
-                        //     girl_url:'',//妹子图片地址
-                        //     date:''//日期
-                        //     results:''//内容
+                        //gank对象说明
+                        // gank:{           //某日干货
+                        //     girl_url:'', //妹子图片地址
+                        //     date:''      //日期
+                        //     results:''   //内容
                         // }
                         var gank={};
                         gank.date=day;
@@ -143,8 +145,6 @@
         padding-top: 70px;
     }
 
-    /*妹子图片*/
-    /*容器*/
     .girl_img{
         width: 100%;
         height: 0;
@@ -153,14 +153,13 @@
         position: relative;
     }
 
-    /*图片*/
     .girl_img img{
         width: 100%;
         -webkit-transform: translateY(-25%);  
         -ms-transform: translateY(-25%);  
         -moz-transform: translateY(-25%);
     }
-    /*日期*/
+
     .girl_img span{
         color: #fff;
         font-size: 24px;
