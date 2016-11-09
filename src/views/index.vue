@@ -4,8 +4,10 @@
     <section id="page">
         <div v-for="gank in ganks">
             <!-- 每日妹子图 -->
-            <div class="girl_img" v-link="{path:'/girl'}">
-                <img v-bind:src="gank.girl_url"><!-- 妹子的url -->
+            <div class="girl_img">
+                <a v-bind:href="gank.girl_url" v-on:click="saveGankData">
+                    <img v-bind:src="gank.girl_url">
+                </a><!-- 妹子的url -->
                 <span v-text="gank.date"></span><!-- 日期 -->
             </div>
             <!-- 每日干货 -->
@@ -15,8 +17,8 @@
                 <!-- 每种类型的干货集 -->
                 <ul>
                     <!-- 每一条干货 -->
-                    <li v-for="item in items" v-link="{path:'/detail'}">
-                        <a v-text="item.desc"></a>
+                    <li v-for="item in items">
+                        <a v-text="item.desc" v-bind:href="item.url" v-on:click="saveGankData"></a>
                         <span class="author" v-if="item.who">(via. {{item.who}})</span>
                         <span class="author" v-else>(via. null})</span>
                     </li>
@@ -39,33 +41,24 @@
         route:{
             //在组件激活后调用，即在activate之后
             data (transition){
-                console.log('data');
+                //如果是从启动页过来，就清空干货和日期数据
+                if(transition.from.path=='/'){
+                    sessionStorage.removeItem("ganks");
+                    sessionStorage.removeItem("day");
+                }
+
+                //如果有干货和日期的数据存储，就取出来，没有就重新加载
                 if(sessionStorage.ganks && sessionStorage.day){
                     this.ganks = JSON.parse(sessionStorage.ganks);
                     this.day =new Date(JSON.parse(sessionStorage.day));
-                    this.$nextTick(()=> $(window).scrollTop(sessionStorage.scrollTop));
                 }else{
                     this.getGank();
                 }
 
-                //滚动加载
+                //滚动监听
                 $(window).on('scroll', () => {
                     this.getScrollData();
                 });
-            },
-            //在组件将要被禁用和被移除的时候调用
-            deactivate (transition){
-                //移除滚动监听事件
-                $(window).off('scroll');
-                if (transition.to.name !== "index") {
-                    sessionStorage.scrollTop = $(window).scrollTop();
-                    sessionStorage.ganks = JSON.stringify(this.ganks);
-                    sessionStorage.day = JSON.stringify(this.day);
-                }else{
-                    sessionStorage.removeItem("ganks");
-                    sessionStorage.removeItem("day");
-                }
-                transition.next();
             }
         },
         methods:{
@@ -120,12 +113,20 @@
                         this.getGank();
                     }
                 }
+            },
+            //存储干货和日期数据
+            saveGankData(){
+                //停止滚动监听
+                $(window).off('scroll');
+                sessionStorage.ganks = JSON.stringify(this.ganks);
+                sessionStorage.day = JSON.stringify(this.day);
             }
         },
         components:{
             'myNav':require('../components/nav.vue')//顶部导航栏
         }
     }
+    //判断是否为无自定义属性的空对象
     function isNullObject(obj){  
         for(var p in obj){  
             if(obj.hasOwnProperty(p)){  
@@ -133,7 +134,7 @@
             }  
         }  
         return true;  //没有自有属性或方法，返回true，该对象是空对象  
-    }  
+    }
 </script>
 <style type="text/css">
     body,img{
@@ -152,14 +153,12 @@
         overflow: hidden;
         position: relative;
     }
-
     .girl_img img{
         width: 100%;
         -webkit-transform: translateY(-25%);  
         -ms-transform: translateY(-25%);  
         -moz-transform: translateY(-25%);
     }
-
     .girl_img span{
         color: #fff;
         font-size: 24px;
@@ -185,7 +184,6 @@
         font-size: 20px;
         text-decoration: none;
     }
-
     .gank .author{
         color: #777;
         font-size: 16px;

@@ -15,18 +15,6 @@ export default function(router) {
         	component: function(resolve) {
                 require(['./views/index.vue'], resolve);
             }
-        },
-        '/detail':{//干货详情页
-            name: 'detail',
-            component: function(resolve) {
-                require(['./views/detail.vue'], resolve);
-            }
-        },
-        '/girl':{
-            name:'girl',
-            component:function(resolve){
-                require(['./views/girl.vue'],resolve);
-            }
         }
   });
 }
