@@ -9,12 +9,23 @@
 	</div>
 	<!-- 菜单 -->
 	<div class="con" v-on:click="showCon">
-		<p>纯@妹子</p>
-		<p>关于GankApp</p>
-		<p>意见反馈</p>
+		<p v-link="{path:'/meizi'}">纯@妹子</p>
+		<p v-on:click="alertAbout">关于GankApp</p>
+		<p v-on:click="jumpToIssue">意见反馈</p>
 	</div>
 	<!-- 遮罩层 -->
 	<div class="overlay" v-on:click="hiddenCon" v-on:touchmove="hiddenCon"></div>
+	<!-- About -->
+	<div class="about">
+		<p>关于GankApp</p>
+		<p>
+			GankApp，每天提供技术干货的WebApp。<br />
+			本App所有数据均来自<a href="http://gank.io/">干货集中营</a><br />
+			作者:lxz612<br />
+			开源地址:https://github.com/lxz612/GankApp<br />
+			感谢 @代码家 @咕咚
+		</p>
+	</div>
 </div>
 </template>
 <script>
@@ -22,17 +33,41 @@ export default {
 	replace:true,
 	data(){
 		return{
-			appName:'GankAppBeta'
+			appName:'GankApp1.0'
 		} 
+	},
+	ready(){
+		$('.con').show();
+		$(function() {
+		  $(".con p").click(function() {
+		  	console.log('hello');
+		    $(this).parent().hide();
+		    return false;
+		  });
+		});
+		$('.con').hide();
 	},
 	methods:{
 		showCon(){
-			$('.overlay').css('display','block');
-			$('.con').addClass('show');
+			if($('.con').hide()){
+				$('.con').show();
+			}
+			$('.overlay').show()
 		},
 		hiddenCon(){
-			$('.overlay').css('display','none');
-			$('.con').removeClass('show');
+			$('.con').hide();
+			$('.overlay').hide();
+			$('.about').hide();
+		},
+		jumpToIssue(){
+			$('.overlay').hide();
+			window.open("https://github.com/lxz612/GankApp/issues");
+		},
+		alertAbout(){
+			$('.con').hide();
+			$('.about').show();
+			$('.overlay').show();
+			$('.overlay').css('background','rgba(0,0,0,0.3)');
 		}
 	}
 }
@@ -72,13 +107,13 @@ export default {
 }
 
 .con{
+	display: none;
 	width: 200px;
 	background: #fff;
 	border-radius: 4px;
 	position: fixed;
 	top: 10px;
 	right: 5px;
-	display: none;
 	z-index: 12;
 }
 .con p{
@@ -90,10 +125,6 @@ export default {
 	font-size:16px;
 }
 
-.show{
-	display: block;
-}
-
 .overlay{
 	display: none;
   position: fixed;
@@ -102,5 +133,25 @@ export default {
   right: 0;
   bottom: 0;
   background: rgba(0,0,0);
+}
+
+.about{
+	display: none;
+	width: 380px;
+	height: 400px;
+	background: #fff;
+	position:fixed;
+	top: 50%;
+	left:50%;
+	z-index: 14;
+	margin:-200px 0 0 -190px;
+	border-radius: 5px;
+}
+.about p{
+	margin: 0;
+	padding: 0;
+	line-height: 60px;
+	font-size: 16px;
+	padding-left: 20px;
 }
 </style>

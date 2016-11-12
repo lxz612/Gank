@@ -37,3 +37,43 @@ Date.prototype.Format = function (fmt) {
   }
   return fmt;
 }
+
+// exports.waterfall=function(){
+//   var $boxs=$('#main .box');
+//   var w=$boxs.eq(0).width();
+
+//   var cols=Math.floor($(window).width()/w);
+//   $('#main').width(w*cols).css('margin-top','70px');
+//   var hArr=[];
+//   $boxs.each(function(index,value){
+//     var h=$boxs.eq(index).height();
+//     if(index<cols){ 
+//       hArr[index]=h;
+//     }else{
+//       var minH=Math.min.apply(null,hArr);
+//       var minHIndex=$.inArray(minH,hArr);
+//       $(value).css({'position':'absolute','top':minH+'px','left':minHIndex*w+'px'})
+//       hArr[minHIndex]+=$boxs.eq(index).height();
+//     }
+//   })
+// }
+
+/*瀑布流效果*/
+exports.waterfall=function(){
+  var $boxs=$('#main .box');
+  var cols=2;
+  var w=($('#main').width())/2;
+  var hArr=[];
+  $boxs.each(function(index,value){
+    $boxs.eq(index).css('width',(w-10)+'px');
+    var h=$boxs.eq(index).height();
+    if(index<cols){ 
+      hArr[index]=h;
+    }else{
+      var minH=Math.min.apply(null,hArr);
+      var minHIndex=$.inArray(minH,hArr);
+      $(value).css({'position':'absolute','top':minH+'px','left':minHIndex*w+'px'});
+      hArr[minHIndex]+=$boxs.eq(index).height();
+    }
+  })
+}

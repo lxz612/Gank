@@ -15,6 +15,12 @@ export default function(router) {
         	component: function(resolve) {
                 require(['./views/index.vue'], resolve);
             }
+        },
+        '/meizi':{//纯妹子
+            name:'meizi',
+            component:function(resolve){
+                require(['./views/meizi.vue'],resolve);
+            }
         }
   });
 }
