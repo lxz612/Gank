@@ -1,35 +1,43 @@
 <template>
-<!-- 顶部导航栏 -->
-<div class="nav">
+<!-- 主页导航栏 -->
+<div class="nav" v-if='isshow'>
+	<!-- 名字 -->
 	<span class="appName" v-text="appName"></span>
-	<div class="setting" v-on:click="showCon">
+	<!-- 菜单按钮 -->
+	<div class="menuBtn" v-on:click="showMenu">
 		<div class="circle"></div>
 		<div class="circle"></div>
 		<div class="circle"></div>
 	</div>
 	<!-- 菜单 -->
-	<div class="con" v-on:click="showCon">
+	<div class="menu" v-on:click="showMenu">
 		<p v-link="{path:'/meizi'}">纯@妹子</p>
 		<p v-on:click="alertAbout">关于GankApp</p>
 		<p v-on:click="jumpToIssue">意见反馈</p>
 	</div>
 	<!-- 遮罩层 -->
-	<div class="overlay" v-on:click="hiddenCon" v-on:touchmove="hiddenCon"></div>
-	<!-- About -->
-	<div class="about">
-		<p>关于GankApp</p>
+	<div class="overlay" v-on:click="hideMenu" v-on:touchmove="hideMenu"></div>
+	<!-- 关于 -->
+	<div class="about" v-on:touchmove="stopBubble">
+		<h2>关于GankApp</h2>
 		<p>
-			GankApp，每天提供技术干货的WebApp。<br />
-			本App所有数据均来自<a href="http://gank.io/">干货集中营</a><br />
-			作者:lxz612<br />
-			开源地址:https://github.com/lxz612/GankApp<br />
-			感谢 @代码家 @咕咚
+			这是一个每天提供技术干货的WebApp。<br />
+			<br />
+			作者：<a href="https://github.com/lxz612">问君知否</a><br />
+			开源地址:<br />
+			<a href="https://github.com/lxz612/GankApp">https://github.com/lxz612/GankApp</a><br />
+			<br />
+			本App所有数据均来自<a href="http://gank.io/">干货集中营</a>。<br />
+			本App设计风格均来自<a href="https://github.com/maoruibin/GankDaily">GankDaily</a>。<br />
+			本App的logo来自<a href="https://github.com/dongjunkun/GanK">Gank。</a><br />
+			感谢 <a href="https://github.com/daimajia">@代码家</a>&nbsp<a href="https://github.com/maoruibin/GankDaily">@咕咚</a>&nbsp<a href="https://github.com/dongjunkun/GanK">@dongjunkun</a> 
 		</p>
 	</div>
 </div>
 </template>
 <script>
 export default {  
+	props:['isshow'],
 	replace:true,
 	data(){
 		return{
@@ -37,25 +45,25 @@ export default {
 		} 
 	},
 	ready(){
-		$('.con').show();
+		$('.menu').show();
 		$(function() {
-		  $(".con p").click(function() {
+		  $(".menu p").click(function() {
 		  	console.log('hello');
 		    $(this).parent().hide();
 		    return false;
 		  });
 		});
-		$('.con').hide();
+		$('.menu').hide();
 	},
 	methods:{
-		showCon(){
-			if($('.con').hide()){
-				$('.con').show();
+		showMenu(){
+			if($('.menu').hide()){
+				$('.menu').show();
 			}
 			$('.overlay').show()
 		},
-		hiddenCon(){
-			$('.con').hide();
+		hideMenu(){
+			$('.menu').hide();
 			$('.overlay').hide();
 			$('.about').hide();
 		},
@@ -64,10 +72,19 @@ export default {
 			window.open("https://github.com/lxz612/GankApp/issues");
 		},
 		alertAbout(){
-			$('.con').hide();
+			$('.menu').hide();
 			$('.about').show();
 			$('.overlay').show();
 			$('.overlay').css('background','rgba(0,0,0,0.3)');
+		},
+		stopBubble(e) {
+		//如果提供了事件对象，则这是一个非IE浏览器
+		if ( e && e.stopPropagation )
+		  //因此它支持W3C的stopPropagation()方法
+		  e.stopPropagation();
+		else
+		  //否则，我们需要使用IE的方式来取消事件冒泡
+		  window.event.cancelBubble = true;
 		}
 	}
 }
@@ -89,7 +106,7 @@ export default {
 	font-size: 20px;
 	margin-left: 15px;
 }
-.setting{
+.menuBtn{
 	width: 60px;
 	height: 70px;
 	float: right;
@@ -106,7 +123,7 @@ export default {
  	border-radius: 3px;
 }
 
-.con{
+.menu{
 	display: none;
 	width: 200px;
 	background: #fff;
@@ -116,7 +133,7 @@ export default {
 	right: 5px;
 	z-index: 12;
 }
-.con p{
+.menu p{
 	padding:0 15px 0;
 	margin:0;
 	height: 50px;
@@ -137,7 +154,7 @@ export default {
 
 .about{
 	display: none;
-	width: 380px;
+	width: 340px;
 	height: 400px;
 	background: #fff;
 	position:fixed;
@@ -146,12 +163,23 @@ export default {
 	z-index: 14;
 	margin:-200px 0 0 -190px;
 	border-radius: 5px;
+	overflow: hidden;
+	padding: 20px;
+}
+
+.about h2{
+	margin: 0;
+	padding: 0;
 }
 .about p{
 	margin: 0;
 	padding: 0;
-	line-height: 60px;
-	font-size: 16px;
-	padding-left: 20px;
+	font-size: 20px;
+	line-height: 30px;
+	/*padding-left: 20px;*/
+}
+.about a{
+	text-decoration: none;
+	color: rgb(143,75,46);
 }
 </style>

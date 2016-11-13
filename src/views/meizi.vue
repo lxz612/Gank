@@ -1,5 +1,5 @@
 <template>
-	<my-nav></my-nav>
+	<detail-Nav v-bind:isshow="isshow"></detail-Nav>
 	<div id="main">
 		<div class="box" v-for="murl in murls">
 			<img v-bind:src="murl.url">
@@ -15,7 +15,8 @@ export default{
 		return {
 			murls:[],
 			page:1,
-			scroll:true
+			scroll:true,
+			isshow:true,
 		}
 	},
 	route:{
@@ -25,6 +26,27 @@ export default{
 			//滚动监听
 			$(window).on('scroll', () => {
 			    this.getScrollMeizi();
+			    
+			    //滚动条到顶部
+          if($(window).scrollTop()<80){
+            this.isshow = true;
+          }
+			});
+
+			let startY;//开始的位置坐标Y值
+			$(window).on('touchstart',(event)=>{
+			    startY=event.touches[0].clientY;
+			});
+
+			//触摸滚动监听
+			$(window).on('touchmove',(event)=>{
+			    let moveY=event.touches[0].clientY;
+			    //上滑
+			    if(moveY<startY&&Math.abs(moveY-startY)>80){
+			        this.isshow=false;
+			    }else if(moveY>startY&&Math.abs(moveY-startY)>80){
+			        this.isshow=true;
+			    }
 			});
 		}
 	},
@@ -62,7 +84,7 @@ export default{
 		}
 	},
 	components:{
-		'myNav':require('../components/nav.vue')//顶部导航栏
+		'detailNav':require('../components/detail_nav.vue')//顶部导航栏
 	}
 }
 </script>

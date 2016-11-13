@@ -1,4 +1,4 @@
-'use strict'
+'use stirct'
 
 //定义路由规则
 export default function(router) {

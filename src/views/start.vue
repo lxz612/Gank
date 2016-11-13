@@ -1,16 +1,20 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+  <div id="start">
+    <div class="logo">
+      <img src="../assets/logo_vue.png">
+      <img src="../assets/logo_gank.png">
+    </div>
+    <h1 v-text="msg"></h1>
+    <p v-text="author"></p>
   </div>
 </template>
-
 <script>
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to GankApp'
+      msg: 'Welcome to GankApp with Vue.js',
+      author:'by lxz612'
     }
   },
   ready(){
@@ -21,12 +25,24 @@ export default {
 }
 </script>
 
-<style scoped>
-#app {
+<style>
+#start {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+  text-align: center;  
+  padding: 10px;
+}
+
+#start .logo{
+  margin-top: 150px;
+}
+
+#start .logo img{
+  width:100px;
+  height: 100px;
+  margin: 10px;
+  border-radius: 5px;
 }
 </style>

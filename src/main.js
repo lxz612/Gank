@@ -1,4 +1,4 @@
-'use strict'
+'use stirct'
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';

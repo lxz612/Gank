@@ -1,4 +1,4 @@
-# gank_app
+# GankApp
 
 > 干货集中营的webapp
 

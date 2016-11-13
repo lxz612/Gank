@@ -1,4 +1,4 @@
-"use strict"
+'use stirct'
 
 //自定义过滤器
 
@@ -11,5 +11,5 @@ exports.filterFuli=(results)=>{
 			fresults[k]=results[k];//这里一定要用中括号表示属性
 		}
 	});
-	return fresults;
+	return fresults; 
 };
