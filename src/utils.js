@@ -58,7 +58,7 @@ Date.prototype.Format = function (fmt) {
 //   })
 // }
 
-/*瀑布流效果*/
+//瀑布流效果
 exports.waterfall=function(){
   var $boxs=$('#main .box');
   var cols=2;
@@ -67,7 +67,7 @@ exports.waterfall=function(){
   $boxs.each(function(index,value){
     $boxs.eq(index).css('width',(w-10)+'px');
     var h=$boxs.eq(index).height();
-    if(index<cols){ 
+    if(index<cols){
       hArr[index]=h;
     }else{
       var minH=Math.min.apply(null,hArr);
@@ -75,5 +75,5 @@ exports.waterfall=function(){
       $(value).css({'position':'absolute','top':minH+'px','left':minHIndex*w+'px'});
       hArr[minHIndex]+=$boxs.eq(index).height();
     }
-  })
+  });
 }
