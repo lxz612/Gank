@@ -10,7 +10,7 @@
 </template>
 <script>
   export default {
-    name: 'app',
+    name: 'start',
     data () {
       return {
         msg: 'Welcome to GankApp with Vue.js',
@@ -24,12 +24,13 @@
     }
   }
 </script>
-
 <style>
-  #start {
+  #app{
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  #start {
     color: #2c3e50;
     text-align: center;  
     padding: 10px;

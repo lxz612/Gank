@@ -79,19 +79,21 @@
           }
 				});
 
-				let startY;
+				let startY=0;
 				$(window).on('touchstart', (event) => {
 					startY = event.touches[0].clientY;
 				});
 
-				//触摸滚动监听
+				//触摸滚动监听html5
 				$(window).on('touchmove', (event) => {
 					let moveY = event.touches[0].clientY;
-					//上滑
-					if (moveY < startY && Math.abs(moveY - startY) > 80) {
+          console.log("moveY",moveY);
+					if (moveY < startY && Math.abs(moveY - startY) > 10) {//上滑
 						this.isshow = false;
-					} else if (moveY > startY && Math.abs(moveY - startY) > 80) {
+            console.log('上滑。。。。');
+					} else if (moveY > startY && Math.abs(moveY - startY) > 10) {//下拉
 						this.isshow = true;
+            console.log('下拉。。。。');
 					}
 				});
 			},
@@ -106,6 +108,7 @@
 				var _self = this; //es5语法中，回调函数内的this指针为null，所以要先用个变量存储当前的this
 
 				var day = utils.dateFmt(_self.day); //格式化后的今日日期
+        // var day=_self.day.toLocaleDateString();//日期为格式化****/**/**
 				console.log('日期',day);
 				var requrl = 'http://gank.io/api/day/' + day;
 				$.get(requrl, function(d) {
