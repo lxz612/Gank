@@ -25,17 +25,11 @@
   }
 </script>
 <style>
-  #app{
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
   #start {
     color: #2c3e50;
     text-align: center;  
     padding: 10px;
   }
-
   #start .logo{
     margin-top: 150px;
   }

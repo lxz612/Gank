@@ -56,18 +56,19 @@
 		font-size: 20px;
 	}
 
-	/* 必需 */
+  /* 必需 */
   .expand-transition {
-    transition: top .1s ease;
-    top: 0px;
+  	will-change: top;
+    transition: top .25s ease-in-out;;
+  }
+
+	/* .expand-enter 定义进入的开始状态 */
+  .expand-enter{
+  	top:-70px;
   }
   
-  /* .expand-enter 定义进入的开始状态 */
-  .expand-enter{
-  	top: 0px;
-  }
   /* .expand-leave 定义离开的结束状态 */
   .expand-leave {
-    top: -70px;
+  	top:-70px;
   }
 </style>

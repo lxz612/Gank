@@ -13,10 +13,13 @@
 	export default{
 		data(){
 			return {
-				murls:[],
-				page:1,
-				scroll:true,
-				isshow:true,
+				murls:[],            //图片URL数组集合
+				page:1,              //页数
+				scroll:true,         //是否正在滚动
+				isshow:true,         //是否显示导航栏
+				lastKnowScrollTop:0, //上一次滚动的位置
+        offset:280,          //偏移量
+        tolerance:10         //容差
 			}
 		},
 		route:{
@@ -26,31 +29,12 @@
 				//滚动监听
 				$(window).on('scroll', () => {
 				    this.getScrollMeizi();
-				    
-				    //滚动条到顶部
-	          if($(window).scrollTop()<80){
-	            this.isshow = true;
-	          }
-				});
-
-				let startY;//开始的位置坐标Y值
-				$(window).on('touchstart',(event)=>{
-				    startY=event.touches[0].clientY;
-				});
-
-				//触摸滚动监听
-				$(window).on('touchmove',(event)=>{
-				    let moveY=event.touches[0].clientY;
-				    //上滑
-				    if(moveY<startY&&Math.abs(moveY-startY)>80){
-				        this.isshow=false;
-				    }else if(moveY>startY&&Math.abs(moveY-startY)>80){
-				        this.isshow=true;
-				    }
+				    this.controlHide();
 				});
 			}
 		},
 		methods:{
+			//获取妹子数据
 			getMeizis(){
 				var _self=this;
 				//获取妹子图。示例API：http://gank.io/api/data/福利/10/1
@@ -74,6 +58,7 @@
 					}
 				});
 			},
+			//滚动获取妹子数据
 			getScrollMeizi(){
 				if(this.scroll){
 				    let differ=$(document).height()-$(window).height();
@@ -83,6 +68,21 @@
 			        this.getMeizis();
 				    }
 				}
+			},
+			//导航栏显隐控制
+			controlHide(){
+			  let curScrollTop=$(window).scrollTop();//当前滚动位置
+			  if(curScrollTop<=this.offset){
+			    this.isshow=true
+			  }else{
+			    let curTolerance=Math.abs(this.lastKnowScrollTop-curScrollTop);
+			    if(curScrollTop<this.lastKnowScrollTop&&curTolerance>this.tolerance){
+			      this.isshow=true;
+			    }else if(curScrollTop>this.lastKnowScrollTop&&curTolerance>this.tolerance){
+			      this.isshow=false;
+			    }
+			    this.lastKnowScrollTop=curScrollTop;
+			  }
 			}
 		},
 		components:{

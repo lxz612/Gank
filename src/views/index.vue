@@ -31,27 +31,15 @@
   export default{
   	data:function(){
 			return {
-				ganks: [],        //多日干货数组
-				day: new Date(),  //待获取干货的日期
-				scroll: true,     //是否允许滚动加载数据
-				isshow: true,     //是否显示导航栏
+				ganks: [],           //多日干货数组
+				day: new Date(),     //待获取干货的日期
+				scroll: true,        //是否正在滚动
+				isshow: true,        //是否显示导航栏
+        lastKnowScrollTop:0, //上一次滚动的位置
+        offset:280,          //偏移量
+        tolerance:10         //容差
 			}
 		},
-    created: function () {
-      // `this` 指向 vm 实例
-      console.log('created');
-    },
-    ready(){
-      console.log('ready');
-    },
-    destroyed(){
-      console.log('destroyed');
-    },
-    computed:{
-      b:function(){
-        return this.a+'5';
-      }
-    },
 		route: {
 			//在组件激活后调用，即在activate之后
 			data(transition) {
@@ -60,7 +48,6 @@
 					sessionStorage.removeItem("ganks");
 					sessionStorage.removeItem("day");
 				}
-
 				//如果有干货和日期的数据存储，就取出来，没有就重新加载
 				if (sessionStorage.ganks && sessionStorage.day) {
 					this.ganks = JSON.parse(sessionStorage.ganks);
@@ -69,33 +56,12 @@
 					this.getGank();
 				}
 
-				//滚动监听加载数据
+				//滚动监听
 				$(window).on('scroll', () => {
 					this.getScrollData();
-
-          //滚动条到顶部
-          if($(window).scrollTop()<80){
-            this.isshow = true;
-          }
+          this.controlHide();
 				});
 
-				let startY=0;
-				$(window).on('touchstart', (event) => {
-					startY = event.touches[0].clientY;
-				});
-
-				//触摸滚动监听html5
-				$(window).on('touchmove', (event) => {
-					let moveY = event.touches[0].clientY;
-          console.log("moveY",moveY);
-					if (moveY < startY && Math.abs(moveY - startY) > 10) {//上滑
-						this.isshow = false;
-            console.log('上滑。。。。');
-					} else if (moveY > startY && Math.abs(moveY - startY) > 10) {//下拉
-						this.isshow = true;
-            console.log('下拉。。。。');
-					}
-				});
 			},
 			deactivate(transition) {
 				this.saveGankData();
@@ -112,7 +78,7 @@
 				console.log('日期',day);
 				var requrl = 'http://gank.io/api/day/' + day;
 				$.get(requrl, function(d) {
-					if (d && !isNullObject(d.results) && !d.error) { //获取今天干货资源
+					if (d && !utils.isNullObject(d.results) && !d.error) { //获取今天干货资源
 						//----------------
 						// gank对象说明
 						// gank:{           //某日干货
@@ -162,21 +128,26 @@
 				$(window).off('scroll');
 				sessionStorage.ganks = JSON.stringify(this.ganks);
 				sessionStorage.day = JSON.stringify(this.day);
-			}
+			},
+      //导航栏显隐控制
+      controlHide(){
+        let curScrollTop=$(window).scrollTop();//当前滚动位置
+        if(curScrollTop<=this.offset){
+          this.isshow=true
+        }else{
+          let curTolerance=Math.abs(this.lastKnowScrollTop-curScrollTop);
+          if(curScrollTop<this.lastKnowScrollTop&&curTolerance>this.tolerance){
+            this.isshow=true;
+          }else if(curScrollTop>this.lastKnowScrollTop&&curTolerance>this.tolerance){
+            this.isshow=false;
+          }
+          this.lastKnowScrollTop=curScrollTop;
+        }
+      }
 		},
 		components: {//注册组件
 			'myNav': require('../components/nav.vue') //顶部导航栏
 		}
-  }
-
-  //判断是否为无自定义属性的空对象
-  function isNullObject(obj) {
-  	for (var p in obj) {
-  		if (obj.hasOwnProperty(p)) {
-  			return false; //有自有属性或方法，返回false  
-  		}
-  	}
-  	return true; //没有自有属性或方法，返回true，该对象是空对象  
   }
 </script>
 <style>
@@ -196,12 +167,14 @@
     overflow: hidden;
     position: relative;
   }
+  
   .girl_img img{
     width: 100%;
     -webkit-transform: translateY(-25%);  
     -ms-transform: translateY(-25%);  
     -moz-transform: translateY(-25%);
   }
+
   .girl_img span{
     color: #fff;
     font-size: 24px;
@@ -215,18 +188,22 @@
     font-size: 28px;
     color: #000;
   }
+
   .gank ul{
     padding:0;
     list-style: none;
   }
+
   .gank li{
   	margin:20px 10px;
   }
+
   .gank li a{
     color:#222;
     font-size: 20px;
     text-decoration: none;
   }
+
   .gank .author{
     color: #777;
     font-size: 16px;
@@ -235,6 +212,7 @@
   .staggered-transition {
       transition: all .5s ease;
   }
+  
   .staggered-enter, .staggered-leave {
       opacity: 0;
   }

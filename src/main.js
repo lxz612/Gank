@@ -11,7 +11,6 @@ Vue.use(VueRouter);
 
 //`$` will be the base `Zepto` object
 //Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api.
-//由webpack-zepto模块提供.这里可以直接使用的原因是zepto已经webpack.config文件中配置好了.
 //设置允许跨域
 $.ajaxSettings.crossDomain = false;
 

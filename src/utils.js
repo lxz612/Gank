@@ -1,14 +1,11 @@
 'use stirct'
 
 //工具类
-//格式化日期
-var dateFmt=function(date) {
-	return date.Format('yyyy/MM/dd');
-}
+//格式化日期为“yyyy/MM/dd”格式
+exports.dateFmt=function(date) {
+  return date.Format('yyyy/MM/dd');
+};
 
-exports.dateFmt=dateFmt;
-
-//格式化日期
 Date.prototype.Format = function (fmt) {
   var o = {
     "y+": this.getFullYear(),
@@ -38,27 +35,7 @@ Date.prototype.Format = function (fmt) {
   return fmt;
 }
 
-// exports.waterfall=function(){
-//   var $boxs=$('#main .box');
-//   var w=$boxs.eq(0).width();
-
-//   var cols=Math.floor($(window).width()/w);
-//   $('#main').width(w*cols).css('margin-top','70px');
-//   var hArr=[];
-//   $boxs.each(function(index,value){
-//     var h=$boxs.eq(index).height();
-//     if(index<cols){ 
-//       hArr[index]=h;
-//     }else{
-//       var minH=Math.min.apply(null,hArr);
-//       var minHIndex=$.inArray(minH,hArr);
-//       $(value).css({'position':'absolute','top':minH+'px','left':minHIndex*w+'px'})
-//       hArr[minHIndex]+=$boxs.eq(index).height();
-//     }
-//   })
-// }
-
-//瀑布流效果
+//瀑布流计算呈现
 exports.waterfall=function(){
   var $boxs=$('#main .box');
   var cols=2;
@@ -76,4 +53,14 @@ exports.waterfall=function(){
       hArr[minHIndex]+=$boxs.eq(index).height();
     }
   });
+}
+
+//判断是否为无自定义属性的空对象
+exports.isNullObject=function(obj) {
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      return false; //有自有属性或方法，返回false  
+    }
+  }
+  return true; //没有自有属性或方法，返回true，该对象是空对象  
 }
