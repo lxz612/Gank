@@ -3,8 +3,9 @@
 > 干货集中营的webapp
 
 ## 截图
-![icon](/screen/index.JPG "")
-![icon](/screen/meizi.JPG "")
+![icon](/screen/start.png "")
+![icon](/screen/index.png "")
+![icon](/screen/meizi.png "")
 
 ## Build Setup
 
@@ -12,7 +13,7 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at 127.0.0.1:8080
 npm run dev
 
 # build for production with minification
