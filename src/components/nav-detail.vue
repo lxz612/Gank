@@ -1,58 +1,83 @@
 <template>
-	<!-- 详情导航页 -->
-	<div class="detail_nav" v-show="isshow" transition="expand">
+	<!-- 头部导航页 -->
+	<header class="header" v-show="isshow" transition="expand">
 		<!-- 返回icon -->
-		<span class="goback" v-on:click="back"></span>
+		<div class="nav-wrap-left">
+			<a class="back" href="javascript:history.back()">
+				<i class="icon-back"></i>
+			</a>
+		</div>
 		<!-- title -->
-		<span class="title">妹子们</span>
-	</div>
+		<div class="title">妹子们</div>
+	</header>
 </template>
 <script>
-	export default{
+	module.exports={
 		props:['isshow'],
-		data(){
+		data:function(){
 			return {
-
 			}
 		},
 		methods:{
-			back(){
-				history.go(-1);
-			}
 		}
 	} 
 </script>
 <style scoped>
-	.detail_nav{
+	header{
 		width: 100%;
-		height:70px;
+		height:60px;
+		line-height: 60px;
 		background: rgb(143,75,46);
-		line-height: 70px;
 
 		position: fixed;
-		top: 0px;
+		top: 0;
 		left: 0;
 		z-index: 10;
 	}
-	.goback{
-		position: absolute;
-		top: 20px; 
-		left: 5px;
-		border: 15px solid transparent;
-		border-right: 20px solid #fff;
+
+	.nav-wrap-left {
+	  height: 60px;
+	  width: 60px;
+	  line-height: 60px;
+	  display: table;
+	  float: left;
 	}
-	.goback:after{
+
+	.nav-wrap-left a.back{
+		width: 60px;
+		height: 60px;
+		display: table-cell;
+		vertical-align: middle;
+		padding: 0 10px;
+		text-decoration: none;
+	}
+
+	a.back .icon-back{
+		display: inline-block;
+		width: 20px;
+  	height: 20px;
+  	position: relative;
+	}
+	.icon-back:before{
 		content: '';
+		display: block;
 		position: absolute;
-		top: -14.5px; 
-		left: -7px;
-		border: 15px solid transparent;
-		border-right: 20px solid rgb(143,75,46);
+		left: 10px;
+		top: 0;
+		width: 30px;
+		height: 30px;
+		border-bottom: 3px solid #fff;
+		border-left: 3px solid #fff;
+		-webkit-transform: scaleY(0.8) rotateZ(45deg);
+	  -moz-transform: scaleY(0.8) rotateZ(45deg);
+	  -ms-transform: scaleY(0.8) rotateZ(45deg);
 	}
 
 	.title{
-		margin-left:50px;
 		color:#fff;
+		width: 60px;
+		height: 60px;
+		float: left;
 		font-size: 20px;
 	}
 

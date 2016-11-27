@@ -1,5 +1,5 @@
 <template>
-  <div id="start">
+  <div class="start">
     <div class="logo">
       <img src="../assets/logo_vue.png">
       <img src="../assets/logo_gank.png">
@@ -9,32 +9,35 @@
   </div>
 </template>
 <script>
-  export default {
+  module.exports={
     name: 'start',
-    data () {
+    data:function(){
       return {
         msg: 'Welcome to GankApp with Vue.js',
-        author:'by lxz612'
+        author:'Author:lxz612'
       }
     },
     ready(){
-      setTimeout(() => {
-          this.$route.router.go({ name: 'index'});
+      var _self=this;
+      setTimeout(function(){
+          _self.$route.router.go({ name: 'index'});
       },2000);
     }
   }
 </script>
-<style>
-  #start {
+<style scoped>
+  .start {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform:translate(-50%,-50%);
+    width: 100%;
     color: #2c3e50;
     text-align: center;  
     padding: 10px;
   }
-  #start .logo{
-    margin-top: 150px;
-  }
 
-  #start .logo img{
+  .start .logo img{
     width:100px;
     height: 100px;
     margin: 10px;

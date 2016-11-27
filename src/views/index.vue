@@ -1,34 +1,36 @@
 <template>
   <my-nav v-bind:isshow="isshow"></my-nav>
-  <section id="page">
+  <section class="page">
     <div v-for="gank in ganks">
+      <!-- 每日妹子图 -->
       <div class="girl_img">
         <a v-bind:href="gank.girl_url" v-on:click="saveGankData">
           <img v-bind:src="gank.girl_url">
         </a>
-        <span v-text="gank.date"></span>
+        <time v-text="gank.date"></time>
       </div>
       <!-- 每日干货 -->
-      <div class="gank" v-for="(type,items) in gank.results|filterFuli">
+      <div class="gank" v-for="(type,items) in gank.results">
         <!-- 干货类型 -->
-        <p v-text="type"></p>
+        <h3 v-text="type"></h3>
         <!-- 每种类型的干货集 -->
         <ul>
           <!-- 每一条干货 -->
-          <li v-for="item in items" transition="staggered" stagger="100">
+          <li v-for="item in items">
             <a v-text="item.desc" v-bind:href="item.url" v-on:click="saveGankData"></a>
             <span class="author" v-if="item.who">(via. {{item.who}})</span>
-            <span class="author" v-else>(via. null})</span>
+            <span class="author" v-else>(via. null)</span>
           </li>
         </ul>
       </div>
     </div>
   </section>
+  <p class="loading">正在加载...</p>
 </template>
 <script>
-  import utils from '../utils';
+  var utils=require('../utils');
 
-  export default{
+  module.exports={
   	data:function(){
 			return {
 				ganks: [],           //多日干货数组
@@ -43,6 +45,8 @@
 		route: {
 			//在组件激活后调用，即在activate之后
 			data(transition) {
+         var _self=this;
+
 				//如果是从启动页过来，就清空干货和日期数据
 				if (transition.from.path == '/') {
 					sessionStorage.removeItem("ganks");
@@ -50,17 +54,17 @@
 				}
 				//如果有干货和日期的数据存储，就取出来，没有就重新加载
 				if (sessionStorage.ganks && sessionStorage.day) {
-					this.ganks = JSON.parse(sessionStorage.ganks);
-					this.day = new Date(JSON.parse(sessionStorage.day));
+					_self.ganks = JSON.parse(sessionStorage.ganks);
+					_self.day = new Date(JSON.parse(sessionStorage.day));
 				} else {
-					this.getGank();
+					_self.getGank();
 				}
 
 				//滚动监听
-				$(window).on('scroll', () => {
-					this.getScrollData();
-          this.controlHide();
-				});
+        $(window).on('scroll',function(){
+          _self.getScrollData();
+          _self.controlHide();
+        });
 
 			},
 			deactivate(transition) {
@@ -92,10 +96,10 @@
 						//获取今日妹子图并删除“福利”
 						Object.keys(d.results).forEach(function(category) { 
 							if (category == '福利') {
-								for (let item in d.results[category]) {
+								for (var item in d.results[category]) {
 									gank.girl_url = d.results[category][item].url;
 								}
-								//delete d.results[category];//删除results对象中的“福利”属性
+								delete d.results[category];//删除results对象中的“福利”属性
 							}
 						});
 						gank.date = day;
@@ -103,7 +107,7 @@
 
 						_self.ganks.push(gank);
 						_self.scroll = true;
-					} else {//今天没有干货，就去获取前一天，以此类推
+					} else {//今天没有干货，就去获取前一天的干货，以此类推
 						_self.day.setDate(_self.day.getDate() - 1);
 						_self.getGank();
 					}
@@ -114,7 +118,7 @@
 				if (this.scroll) {
 					//原理：当“文档滚动距离>=文档总高度-窗口高度”时，进行加载。
 					//但实际上文档滚动距离会出现偏差，即不会等于或大于后者的差值（可以观察下面两个log打印的值）。这时就要略微再减少一点差值，才能有作用。
-					let differ = $(document).height() - $(window).height();
+					var differ = $(document).height() - $(window).height();
 					if ($(window).scrollTop() >= differ - 10) {
 						this.scroll = false;
 						this.day.setDate(this.day.getDate() - 1);
@@ -131,11 +135,11 @@
 			},
       //导航栏显隐控制
       controlHide(){
-        let curScrollTop=$(window).scrollTop();//当前滚动位置
+        var curScrollTop=$(window).scrollTop();//当前滚动位置
         if(curScrollTop<=this.offset){
           this.isshow=true
         }else{
-          let curTolerance=Math.abs(this.lastKnowScrollTop-curScrollTop);
+          var curTolerance=Math.abs(this.lastKnowScrollTop-curScrollTop);
           if(curScrollTop<this.lastKnowScrollTop&&curTolerance>this.tolerance){
             this.isshow=true;
           }else if(curScrollTop>this.lastKnowScrollTop&&curTolerance>this.tolerance){
@@ -150,14 +154,10 @@
 		}
   }
 </script>
-<style>
-  body,img{
-    margin: 0;
-    padding: 0;
-  }
+<style scoped>
 
-  #page{
-    padding-top: 70px;
+  .page{
+    padding-top: 60px;
   }
 
   .girl_img{
@@ -175,7 +175,7 @@
     -moz-transform: translateY(-25%);
   }
 
-  .girl_img span{
+  .girl_img time{
     color: #fff;
     font-size: 24px;
     position: absolute;
@@ -183,10 +183,11 @@
     bottom: 10px;
   }
 
-  .gank p{
+  .gank h3{
+    margin-top: 10px;
     padding-left: 10px;
     font-size: 28px;
-    color: #000;
+    color: #111;
   }
 
   .gank ul{
@@ -209,13 +210,12 @@
     font-size: 16px;
   }
 
-  .staggered-transition {
-      transition: all .5s ease;
+  .loading{
+    margin: 0;
+    padding: 1em 0;
+    text-align: center;
+    background:#eee;
+    color: #333;
   }
-  
-  .staggered-enter, .staggered-leave {
-      opacity: 0;
-  }
-  
 </style>
 

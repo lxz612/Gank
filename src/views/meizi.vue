@@ -1,18 +1,35 @@
 <template>
 	<nav-detail v-bind:isshow="isshow"></nav-detail>
-	<div id="main">
-		<div class="box" v-for="murl in murls">
-			<img v-bind:src="murl.url">
-			<span v-text="murl.date"></span>
-		</div>
+	<div class="main">
+		<waterfall
+			:align="align"
+      :line-gap="150"
+      :min-line-gap="150"
+      :max-line-gap="200"
+      :single-max-width="200"
+      :watch="murls">
+			<waterfall-slot
+	          v-for="item in murls"
+	          :width="item.width"
+	          :height="item.height"
+	          :order="$index"
+	          track-by="$index">
+	      <div class="box" :index="item.index">
+	      	<a v-bind:href="item.url"><img v-bind:src="item.url"></a>
+					<span v-text="item.date"></span>
+	      </div>
+	    </waterfall-slot>
+		</waterfall>
 	</div>
 </template>
 <script>
-	import utils from '../utils';
+	var utils =require('../utils');
+	var Waterfall = require('vue-waterfall')
 
-	export default{
-		data(){
+	module.exports={
+		data:function(){
 			return {
+				align:'center',
 				murls:[],            //图片URL数组集合
 				page:1,              //页数
 				scroll:true,         //是否正在滚动
@@ -24,12 +41,15 @@
 		},
 		route:{
 			data(transition){
-				console.log('start...');
-				this.getMeizis();
+				var _self=this;
+
+				//首次获取妹子图
+				_self.getMeizis();
+
 				//滚动监听
-				$(window).on('scroll', () => {
-				    this.getScrollMeizi();
-				    this.controlHide();
+				$(window).on('scroll', function(){
+				    _self.getScrollMeizi();
+				    _self.controlHide();
 				});
 			}
 		},
@@ -41,27 +61,40 @@
 				var url="http://gank.io/api/data/福利/10/"+_self.page;
 				$.get(url,function(d){
 					if(d.results&&!d.error){
-						for(let index in d.results){
-							let murl={};
-							murl.date=d.results[index].desc;
-							murl.url=d.results[index].url;
-							console.log('date',murl.date);
-							console.log('meizi',murl.url);
-							_self.murls.push(murl);
-						}
+            d.results.forEach(function(item,index){
+            	var murl={};
+            	murl.date=item.desc;
+							murl.url=item.url;
+							murl.index=parseInt(index)+((_self.page-1)*10);
+							console.log('murl.index',murl.index);
+
+							var newURL=murl.url;
+							var img = new Image();
+							img.src=newURL;
+
+							//判断是否有缓存
+							if (img.complete) {
+								console.log('complete---------');
+								murl.width=img.width;
+								murl.height=img.height;
+								_self.murls.push(murl);
+							}else{
+								img.onload=function(){
+									console.log('onload---------');
+									murl.width=img.width;
+									murl.height=img.height;
+									_self.murls.push(murl);
+								}
+							}
+            })					
 						_self.scroll=true;
-						
-						//瀑布流效果
-						_self.$nextTick(function(){
-							utils.waterfall();
-						});
 					}
 				});
 			},
 			//滚动获取妹子数据
 			getScrollMeizi(){
 				if(this.scroll){
-				    let differ=$(document).height()-$(window).height();
+				    var differ=$(document).height()-$(window).height();
 				    if($(window).scrollTop()>=differ-10){
 			        this.scroll = false;
 			        this.page++;
@@ -71,11 +104,11 @@
 			},
 			//导航栏显隐控制
 			controlHide(){
-			  let curScrollTop=$(window).scrollTop();//当前滚动位置
+			  var curScrollTop=$(window).scrollTop();//当前滚动位置
 			  if(curScrollTop<=this.offset){
-			    this.isshow=true
+			    this.isshow=true;
 			  }else{
-			    let curTolerance=Math.abs(this.lastKnowScrollTop-curScrollTop);
+			    var curTolerance=Math.abs(this.lastKnowScrollTop-curScrollTop);
 			    if(curScrollTop<this.lastKnowScrollTop&&curTolerance>this.tolerance){
 			      this.isshow=true;
 			    }else if(curScrollTop>this.lastKnowScrollTop&&curTolerance>this.tolerance){
@@ -86,25 +119,25 @@
 			}
 		},
 		components:{
-			'navDetail':require('../components/nav-detail.vue')//顶部导航栏
+			'navDetail':require('../components/nav-detail.vue'),//顶部导航栏
+			'waterfall':Waterfall.waterfall,
+			'waterfall-slot': Waterfall.waterfallSlot
 		}
 	}
 </script>
-<style>
-	*{
-		margin: 0;
-		padding: 0;
-	}
-	#main{
-		margin-top: 70px;
+<style scoped>
+	.main{
+		margin-top: 60px;
 		position: relative;
 	}
 	.box{
-		float: left;
-		padding: 3px;
-		border:1px solid #ccc;
-		border-radius: 5px;
-		box-shadow:0 0 5px #ccc;
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		right: 5px;
+		bottom: 5px;
+		font-size: 1.2em;
+		color: rgb(0,158,107);
 	}
 	.box img{
 		width:100%;
@@ -115,9 +148,9 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: 100%;
 		margin-left: 5px;
-		margin-bottom: 5px;
+		margin-bottom:5px;
+		width: 100%;
 		color:#fff;
 		font-size: 20px;
 		z-index: 3;

@@ -1,6 +1,6 @@
 <template>
-	<!-- 主页导航栏 -->
-	<div class="nav" v-show="isshow" transition="expand">
+	<!-- 头部导航栏 -->
+	<header v-show="isshow" transition="expand">
 		<!-- App名字 -->
 		<span class="appName" v-text="appName"></span>
 		<!-- 菜单btn -->
@@ -11,7 +11,7 @@
 		</div>
 		<!-- 菜单项 -->
 		<div class="menu" v-on:click="showMenu">
-			<p v-link="{path:'/meizi'}">纯@妹子</p>
+			<p v-link="{path:'/meizi'}">纯·妹子</p>
 			<p v-on:click="alertAbout">关于GankApp</p>
 			<p v-on:click="jumpToIssue">意见反馈</p>
 		</div>
@@ -33,10 +33,10 @@
 				感谢 <a href="https://github.com/daimajia">@代码家</a>&nbsp<a href="https://github.com/maoruibin/GankDaily">@咕咚</a>&nbsp<a href="https://github.com/dongjunkun/GanK">@dongjunkun</a> 
 			</p>
 		</div>
-	</div>
+	</header>
 </template>
 <script>
-	export default {  
+	module.exports={  
 		props:['isshow'],
 		replace:true,
 		data(){
@@ -90,11 +90,11 @@
 	}
 </script>
 <style scoped>
-	.nav{
+	header{
 		width: 100%;
-		height:70px;
+		height:60px;
 		background: rgb(143,75,46);
-		line-height: 70px;
+		line-height: 60px;
 
 		position: fixed;
 		top: 0;
@@ -154,16 +154,14 @@
 
 	.about{
 		display: none;
-		width: 340px;
-		/*height: 400px;*/
+		width: 80%;
 		background: #fff;
 		position:fixed;
-		top: 50%;
+		top:50%;
 		left:50%;
 		z-index: 14;
-		margin:-200px 0 0 -190px;
+		-webkit-transform:translate(-50%,-50%);
 		border-radius: 5px;
-		overflow: hidden;
 		padding: 20px;
 	}
 
