@@ -80,7 +80,7 @@
 				var day = utils.dateFmt(_self.day); //格式化后的今日日期
         // var day=_self.day.toLocaleDateString();//日期为格式化****/**/**
 				console.log('日期',day);
-				var requrl = 'http://gank.io/api/day/' + day;
+				var requrl = 'https://gank.io/api/day/' + day;
 				$.get(requrl, function(d) {
 					if (d && !utils.isNullObject(d.results) && !d.error) { //获取今天干货资源
 						//----------------
