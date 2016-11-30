@@ -2,11 +2,17 @@
 
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 //webpack插件
 var plugins = [
     //提公用js到common.js文件中
     new webpack.optimize.CommonsChunkPlugin('common.js'),
+    //将样式统一发布到style.css中
+    new ExtractTextPlugin("style.css", {
+        allChunks: true,
+        disable: false
+    }),
     // 使用 ProvidePlugin 加载使用率高的依赖库
     new webpack.ProvidePlugin({
       $: 'webpack-zepto'
@@ -14,11 +20,13 @@ var plugins = [
 ];
 
 module.exports = {
-  entry: './src/main.js', //入口文件
-  output: {               //输出配置
-    path: path.resolve(__dirname, './dist'),//生成文件的存储路径
-    publicPath: '/dist/',                   //？？？
-    filename: 'build.js'                    //生成的文件名
+  debug: true,
+  entry: './src/main',                     //入口文件
+  output: {                                //输出配置
+    path: __dirname + '/dist/',            //生成文件的存储路径
+    filename: 'build.js',                  //生成的文件名
+    publicPath: '/dist/',
+    chunkFilename: '[id].build.js?[chunkhash]'               
   },
   //配置loader
   module: {
@@ -30,7 +38,7 @@ module.exports = {
       {//处理.js文件
         test: /\.js$/,
         loader: 'babel',
-        exclude: /node_modules/
+        exclude: /node_modules|vue\/dist/
       },
       {//处理文件中各种图片资源
         test: /\.(png|jpg|gif|svg)$/,
@@ -38,8 +46,29 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&minetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
+        test:/\.(html|tpl)$/,
+        loader: 'html-loader'
       }
     ]
+  },
+  vue:{
+    loaders: {
+      css: ExtractTextPlugin.extract("css")
+    }
   },
   babel: {
       //es6转码为es5
@@ -55,7 +84,7 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true
   },
-  devtool: '#eval-source-map'
+  devtool: '#source-map'
 }
 
 //生产环境

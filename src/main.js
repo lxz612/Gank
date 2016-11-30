@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 
 //`$` will be the base `Zepto` object
 //设置允许跨域
-$.ajaxSettings.crossDomain = false;
+$.ajaxSettings.crossDomain = true;
 
 //解决移动浏览器300ms延时问题
 FastClick.attach(document.body);
