@@ -25,7 +25,7 @@ module.exports = {
   output: {                                //输出配置
     path: __dirname + '/dist/',            //生成文件的存储路径
     filename: 'build.js',                  //生成的文件名
-    publicPath: '/Gank/dist/',
+    publicPath: '/Gank/dist/',             //路由路径
     chunkFilename: '[id].build.js?[chunkhash]'               
   },
   //配置loader
@@ -46,22 +46,6 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&minetype=application/font-woff"
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader"
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
-        test:/\.(html|tpl)$/,
-        loader: 'html-loader'
       }
     ]
   },

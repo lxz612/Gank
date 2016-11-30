@@ -57,7 +57,17 @@ webpackJsonp([1,4],[
 	  }
 	};
 	// </script>
-	// <style scoped>
+	// <style>
+	//   /* 全局样式 */
+	//   body,img{
+	//     padding:0;
+	//     margin:0;
+	//   }
+	//   body{
+	//     font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+	//   }
+	//
+	//   /* start.vue样式 */
 	//   .start {
 	//     position: absolute;
 	//     top: 50%;
@@ -83,7 +93,7 @@ webpackJsonp([1,4],[
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n  <div class=\"start\" _v-6fb63e38=\"\">\n    <div class=\"logo\" _v-6fb63e38=\"\">\n      <img src=\"" + __webpack_require__(11) + "\" _v-6fb63e38=\"\">\n      <img src=\"" + __webpack_require__(12) + "\" _v-6fb63e38=\"\">\n    </div>\n    <h1 v-text=\"msg\" _v-6fb63e38=\"\"></h1>\n    <p v-text=\"author\" _v-6fb63e38=\"\"></p>\n  </div>\n";
+	module.exports = "\r\n  <div class=\"start\">\r\n    <div class=\"logo\">\r\n      <img src=\"" + __webpack_require__(11) + "\">\r\n      <img src=\"" + __webpack_require__(12) + "\">\r\n    </div>\r\n    <h1 v-text=\"msg\"></h1>\r\n    <p v-text=\"author\"></p>\r\n  </div>\r\n";
 
 /***/ },
 /* 11 */
@@ -99,4 +109,4 @@ webpackJsonp([1,4],[
 
 /***/ }
 ]);
-//# sourceMappingURL=1.build.js.map?eed37cb122c6669b3d52
+//# sourceMappingURL=1.build.js.map?57d6eb05645ed0319566

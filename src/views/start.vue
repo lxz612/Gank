@@ -25,7 +25,17 @@
     }
   }
 </script>
-<style scoped>
+<style>
+  /* 全局样式 */
+  body,img{
+    padding:0;
+    margin:0;
+  }
+  body{
+    font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  }
+
+  /* start.vue样式 */
   .start {
     position: absolute;
     top: 50%;

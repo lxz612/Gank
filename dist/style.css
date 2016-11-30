@@ -1,5 +1,15 @@
 
-  .start[_v-6fb63e38] {
+  /* 全局样式 */
+  body,img{
+    padding:0;
+    margin:0;
+  }
+  body{
+    font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  }
+
+  /* start.vue样式 */
+  .start {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -10,7 +20,7 @@
     padding: 10px;
   }
 
-  .start .logo img[_v-6fb63e38]{
+  .start .logo img{
     width:100px;
     height: 100px;
     margin: 10px;

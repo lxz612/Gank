@@ -5,7 +5,7 @@
   "author": "lxz612",
   "private": false,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --host 192.168.199.235 --port 8080",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --host 127.0.0.1 --port 8080",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
@@ -26,9 +26,6 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "fastclick": "^1.0.6",
     "file-loader": "^0.9.0",
-    "html-loader": "^0.3.0",
-    "json-loader": "^0.5.4",
-    "url-loader": "^0.5.7",
     "style-loader": "^0.13.0",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.2.3",
