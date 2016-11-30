@@ -2,29 +2,22 @@ webpackJsonp([0,4],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 	'use stirct';
 	
-	var _vue = __webpack_require__(3);
+	var _vue = __webpack_require__(2);
 	
 	var _vue2 = _interopRequireDefault(_vue);
 	
-	var _vueRouter = __webpack_require__(5);
+	var _vueRouter = __webpack_require__(4);
 	
 	var _vueRouter2 = _interopRequireDefault(_vueRouter);
 	
-	var _fastclick = __webpack_require__(6);
+	var _fastclick = __webpack_require__(5);
 	
 	var _fastclick2 = _interopRequireDefault(_fastclick);
 	
-	var _routers = __webpack_require__(7);
+	var _routers = __webpack_require__(6);
 	
 	var _routers2 = _interopRequireDefault(_routers);
 	
@@ -56,10 +49,10 @@ webpackJsonp([0,4],[
 	// 现在我们可以启动应用了！
 	// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 	router.start(app, "#app");
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ },
-/* 2 */
+/* 1 */
 /***/ function(module, exports) {
 
 	/* Zepto v1.1.6 - zepto event ajax form ie - zeptojs.com/license */
@@ -1648,7 +1641,7 @@ webpackJsonp([0,4],[
 	})(Zepto)
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/*!
@@ -11889,10 +11882,10 @@ webpackJsonp([0,4],[
 	}, 0);
 	
 	module.exports = Vue;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -12078,7 +12071,7 @@ webpackJsonp([0,4],[
 
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -14792,7 +14785,7 @@ webpackJsonp([0,4],[
 	}));
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
@@ -15639,7 +15632,7 @@ webpackJsonp([0,4],[
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15654,22 +15647,22 @@ webpackJsonp([0,4],[
 	exports.default = function (router) {
 	    //路由映射
 	    router.map({
-	        '/': { //启动页
+	        '/Gank': { //启动页
 	            name: 'start',
 	            component: function component(resolve) {
-	                __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(8)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	                __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(7)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	            }
 	        },
-	        '/index': { //首页
+	        '/Gank/index': { //首页
 	            name: 'index',
 	            component: function component(resolve) {
-	                __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(14)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	                __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(13)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	            }
 	        },
-	        '/meizi': { //纯妹子
+	        '/Gank/meizi': { //纯妹子
 	            name: 'meizi',
 	            component: function component(resolve) {
-	                __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(37)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
+	                __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(36)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	            }
 	        }
 	    });
