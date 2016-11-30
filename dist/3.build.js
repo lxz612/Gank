@@ -138,7 +138,7 @@ webpackJsonp([3,4],{
 			getMeizis: function getMeizis() {
 				var _self = this;
 				//获取妹子图。示例API：http://gank.io/api/data/福利/10/1
-				var url = "http://gank.io/api/data/福利/10/" + _self.page;
+				var url = "https://gank.io/api/data/福利/10/" + _self.page;
 				$.get(url, function (d) {
 					if (d.results && !d.error) {
 						d.results.forEach(function (item, index) {
@@ -397,4 +397,4 @@ webpackJsonp([3,4],{
 /***/ }
 
 });
-//# sourceMappingURL=3.build.js.map?b7ba4e981d6e7750b694
+//# sourceMappingURL=3.build.js.map?0720ac5ae68d93c64c6d

@@ -25,7 +25,7 @@ module.exports = {
   output: {                                //输出配置
     path: __dirname + '/dist/',            //生成文件的存储路径
     filename: 'build.js',                  //生成的文件名
-    publicPath: '/Gank/dist/',
+    publicPath: '/dist/',
     chunkFilename: '[id].build.js?[chunkhash]'               
   },
   //配置loader
