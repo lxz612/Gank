@@ -15647,19 +15647,19 @@ webpackJsonp([0,4],[
 	exports.default = function (router) {
 	    //路由映射
 	    router.map({
-	        '/Gank': { //启动页
+	        '/': { //启动页
 	            name: 'start',
 	            component: function component(resolve) {
 	                __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(7)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	            }
 	        },
-	        '/Gank/index': { //首页
+	        '/index': { //首页
 	            name: 'index',
 	            component: function component(resolve) {
 	                __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(13)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));
 	            }
 	        },
-	        '/Gank/meizi': { //纯妹子
+	        '/meizi': { //纯妹子
 	            name: 'meizi',
 	            component: function component(resolve) {
 	                __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(36)]; (resolve.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}.bind(this));

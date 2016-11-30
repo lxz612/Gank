@@ -8,7 +8,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var plugins = [
     //提公用js到common.js文件中
     new webpack.optimize.CommonsChunkPlugin('common.js'),
-    //将样式统一发布到style.css中
+    //将样式统一打包到style.css中
     new ExtractTextPlugin("style.css", {
         allChunks: true,
         disable: false
@@ -21,12 +21,12 @@ var plugins = [
 
 module.exports = {
   debug: true,
-  entry: './src/main',                     //入口文件
-  output: {                                //输出配置
-    path: __dirname + '/dist/',            //生成文件的存储路径
-    filename: 'build.js',                  //生成的文件名
-    publicPath: '/Gank/dist/',
-    chunkFilename: '[id].build.js?[chunkhash]'               
+  entry: './src/main',                        //入口文件
+  output: {                                   //输出配置
+    path: path.resolve(__dirname,'/dist/'),   //生成文件的存储路径
+    filename: 'build.js',                     //生成的文件名
+    publicPath: '/dist/',                     //打包时所需配置的路径（打包才用到）
+    chunkFilename: '[id].build.js?[chunkhash]'//按需加载的文件               
   },
   //配置loader
   module: {
@@ -46,27 +46,12 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=10000&minetype=application/font-woff"
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader"
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
-        test:/\.(html|tpl)$/,
-        loader: 'html-loader'
       }
     ]
   },
   vue:{
     loaders: {
+      //将vue文件中的css提取出来单独打包
       css: ExtractTextPlugin.extract("css")
     }
   },

@@ -553,7 +553,7 @@ webpackJsonp([2,4],[
 	// 		</div>
 	// 		<!-- 菜单项 -->
 	// 		<div class="menu" v-on:click="showMenu">
-	// 			<p v-link="{path:'/Gank/meizi'}">纯·妹子</p>
+	// 			<p v-link="{path:'/meizi'}">纯·妹子</p>
 	// 			<p v-on:click="alertAbout">关于GankApp</p>
 	// 			<p v-on:click="jumpToIssue">意见反馈</p>
 	// 		</div>
@@ -749,7 +749,7 @@ webpackJsonp([2,4],[
 /* 34 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\t<!-- 头部导航栏 -->\n\t<header v-show=\"isshow\" transition=\"expand\" _v-4344d59d=\"\">\n\t\t<!-- App名字 -->\n\t\t<span class=\"appName\" v-text=\"appName\" _v-4344d59d=\"\"></span>\n\t\t<!-- 菜单btn -->\n\t\t<div class=\"menuBtn\" v-on:click=\"showMenu\" _v-4344d59d=\"\">\n\t\t\t<div class=\"circle\" _v-4344d59d=\"\"></div>\n\t\t\t<div class=\"circle\" _v-4344d59d=\"\"></div>\n\t\t\t<div class=\"circle\" _v-4344d59d=\"\"></div>\n\t\t</div>\n\t\t<!-- 菜单项 -->\n\t\t<div class=\"menu\" v-on:click=\"showMenu\" _v-4344d59d=\"\">\n\t\t\t<p v-link=\"{path:'/Gank/meizi'}\" _v-4344d59d=\"\">纯·妹子</p>\n\t\t\t<p v-on:click=\"alertAbout\" _v-4344d59d=\"\">关于GankApp</p>\n\t\t\t<p v-on:click=\"jumpToIssue\" _v-4344d59d=\"\">意见反馈</p>\n\t\t</div>\n\t\t<!-- 遮罩层 -->\n\t\t<div class=\"overlay\" v-on:click=\"hideMenu\" v-on:touchmove=\"hideMenu\" _v-4344d59d=\"\"></div>\n\t\t<!-- 关于 -->\n\t\t<div class=\"about\" v-on:touchmove.stop=\"\" _v-4344d59d=\"\">\n\t\t\t<p _v-4344d59d=\"\">\n\t\t\t\t关于GankApp<br _v-4344d59d=\"\">\n\t\t\t\t<br _v-4344d59d=\"\">\n\t\t\t\t作者&nbsp;<a href=\"https://github.com/lxz612\" _v-4344d59d=\"\">问君知否</a>&nbsp;&nbsp;&nbsp;\n\t\t\t\t项目地址&nbsp;<a href=\"https://github.com/lxz612/GankApp\" _v-4344d59d=\"\">Github</a><br _v-4344d59d=\"\">\n\t\t\t\t<br _v-4344d59d=\"\">\n\t\t\t\t声明<br _v-4344d59d=\"\">\n\t\t\t\t&nbsp; App所有数据来源于<a href=\"http://gank.io/\" _v-4344d59d=\"\">&nbsp;干货集中营</a><br _v-4344d59d=\"\">\n\t\t\t\t&nbsp; App设计风格来源于<a href=\"https://github.com/maoruibin/GankDaily\" _v-4344d59d=\"\">&nbsp;GankDaily</a><br _v-4344d59d=\"\">\n\t\t\t\t&nbsp; App的logo来自<a href=\"https://github.com/dongjunkun/GanK\" _v-4344d59d=\"\">&nbsp;Gank</a><br _v-4344d59d=\"\">\n\t\t\t\t<br _v-4344d59d=\"\">\n\t\t\t\t感谢 <a href=\"https://github.com/daimajia\" _v-4344d59d=\"\">@代码家</a>&nbsp;<a href=\"https://github.com/maoruibin/GankDaily\" _v-4344d59d=\"\">@咕咚</a>&nbsp;<a href=\"https://github.com/dongjunkun/GanK\" _v-4344d59d=\"\">@dongjunkun</a> \n\t\t\t</p>\n\t\t</div>\n\t</header>\n";
+	module.exports = "\n\t<!-- 头部导航栏 -->\n\t<header v-show=\"isshow\" transition=\"expand\" _v-4344d59d=\"\">\n\t\t<!-- App名字 -->\n\t\t<span class=\"appName\" v-text=\"appName\" _v-4344d59d=\"\"></span>\n\t\t<!-- 菜单btn -->\n\t\t<div class=\"menuBtn\" v-on:click=\"showMenu\" _v-4344d59d=\"\">\n\t\t\t<div class=\"circle\" _v-4344d59d=\"\"></div>\n\t\t\t<div class=\"circle\" _v-4344d59d=\"\"></div>\n\t\t\t<div class=\"circle\" _v-4344d59d=\"\"></div>\n\t\t</div>\n\t\t<!-- 菜单项 -->\n\t\t<div class=\"menu\" v-on:click=\"showMenu\" _v-4344d59d=\"\">\n\t\t\t<p v-link=\"{path:'/meizi'}\" _v-4344d59d=\"\">纯·妹子</p>\n\t\t\t<p v-on:click=\"alertAbout\" _v-4344d59d=\"\">关于GankApp</p>\n\t\t\t<p v-on:click=\"jumpToIssue\" _v-4344d59d=\"\">意见反馈</p>\n\t\t</div>\n\t\t<!-- 遮罩层 -->\n\t\t<div class=\"overlay\" v-on:click=\"hideMenu\" v-on:touchmove=\"hideMenu\" _v-4344d59d=\"\"></div>\n\t\t<!-- 关于 -->\n\t\t<div class=\"about\" v-on:touchmove.stop=\"\" _v-4344d59d=\"\">\n\t\t\t<p _v-4344d59d=\"\">\n\t\t\t\t关于GankApp<br _v-4344d59d=\"\">\n\t\t\t\t<br _v-4344d59d=\"\">\n\t\t\t\t作者&nbsp;<a href=\"https://github.com/lxz612\" _v-4344d59d=\"\">问君知否</a>&nbsp;&nbsp;&nbsp;\n\t\t\t\t项目地址&nbsp;<a href=\"https://github.com/lxz612/GankApp\" _v-4344d59d=\"\">Github</a><br _v-4344d59d=\"\">\n\t\t\t\t<br _v-4344d59d=\"\">\n\t\t\t\t声明<br _v-4344d59d=\"\">\n\t\t\t\t&nbsp; App所有数据来源于<a href=\"http://gank.io/\" _v-4344d59d=\"\">&nbsp;干货集中营</a><br _v-4344d59d=\"\">\n\t\t\t\t&nbsp; App设计风格来源于<a href=\"https://github.com/maoruibin/GankDaily\" _v-4344d59d=\"\">&nbsp;GankDaily</a><br _v-4344d59d=\"\">\n\t\t\t\t&nbsp; App的logo来自<a href=\"https://github.com/dongjunkun/GanK\" _v-4344d59d=\"\">&nbsp;Gank</a><br _v-4344d59d=\"\">\n\t\t\t\t<br _v-4344d59d=\"\">\n\t\t\t\t感谢 <a href=\"https://github.com/daimajia\" _v-4344d59d=\"\">@代码家</a>&nbsp;<a href=\"https://github.com/maoruibin/GankDaily\" _v-4344d59d=\"\">@咕咚</a>&nbsp;<a href=\"https://github.com/dongjunkun/GanK\" _v-4344d59d=\"\">@dongjunkun</a> \n\t\t\t</p>\n\t\t</div>\n\t</header>\n";
 
 /***/ },
 /* 35 */
@@ -759,4 +759,4 @@ webpackJsonp([2,4],[
 
 /***/ }
 ]);
-//# sourceMappingURL=2.build.js.map?c6fc4f4593cc0b750adc
+//# sourceMappingURL=2.build.js.map?246550972095da95fd0c

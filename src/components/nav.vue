@@ -11,7 +11,7 @@
 		</div>
 		<!-- 菜单项 -->
 		<div class="menu" v-on:click="showMenu">
-			<p v-link="{path:'/Gank/meizi'}">纯·妹子</p>
+			<p v-link="{path:'/meizi'}">纯·妹子</p>
 			<p v-on:click="alertAbout">关于GankApp</p>
 			<p v-on:click="jumpToIssue">意见反馈</p>
 		</div>
